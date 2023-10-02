@@ -13,36 +13,52 @@ export const StateContextProvider = ({ children }) => {
   const { contract } = useContract(
     "0x4E33846C2e49f82323506017C658a0f1001ACd57"
   );
-  const {mutateAsync: createCampaign} = useContractWrite(contract,'createCampaign');
+  const { mutateAsync: createCampaign } = useContractWrite(
+    contract,
+    "createCampaign"
+  );
 
   const address = useAddress();
   const connect = useMetamask();
 
   const publishCampaign = async (form) => {
-
     try {
-        const data = await createCampaign({
-          args:[
-            address,
-            form.title,
-            form.description,
-            form.target,
-            new Date(form.deadline).getTime(),
-            form.image
-        ]})
+      const data = await createCampaign({
+        args: [
+          address,
+          form.title,
+          form.description,
+          form.target,
+          new Date(form.deadline).getTime(),
+          form.image,
+        ],
+      });
 
-        console.log("contract call success", data);
-
+      console.log("contract call success", data);
     } catch (error) {
-        console.log("contract call failure", error);
-
+      console.log("contract call failure", error);
     }
-  }
+  };
 
-  const getCampaigns = async (form) => {
-    const campaigns = await contract.call('getCampaigns')
-    console.log(campaigns)
-  }
+  const getCampaigns = async () => {
+    const campaigns = await contract.call("getCampaigns");
+    console.log(campaigns);
+    const parsedCampaigns = campaigns.map((campaign, i) => ({
+          owner:campaign.owner,
+          title:campaign.title,
+          description:campaign.description,
+          target:ethers.utils.formatEther(campaign.target.toString()),
+          deadline: campaign.deadline.toNumber(),
+          amountCollected: ethers.utils.formatEther(campaign.amountCollected.toString()),
+          image: campaign.image,
+          pId:i
+
+    }))
+
+  console.log(parsedCampaigns);
+  };
+
+
 
   return (
     <StateContext.Provider
@@ -57,7 +73,6 @@ export const StateContextProvider = ({ children }) => {
       {children}
     </StateContext.Provider>
   );
-
 };
 
 export const useStateContext = () => useContext(StateContext);
