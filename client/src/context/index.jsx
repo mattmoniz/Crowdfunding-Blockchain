@@ -21,14 +21,15 @@ export const StateContextProvider = ({ children }) => {
   const publishCampaign = async (form) => {
 
     try {
-        const data = await createCampaign([
+        const data = await createCampaign({
+          args:[
             address,
             form.title,
             form.description,
             form.target,
             new Date(form.deadline).getTime(),
             form.image
-        ])
+        ]})
 
         console.log("contract call success", data);
 
@@ -38,20 +39,24 @@ export const StateContextProvider = ({ children }) => {
     }
   }
 
+  const getCampaigns = async (form) => {
+    const campaigns = await contract.call('getCampaigns')
+    console.log(campaigns)
+  }
+
   return (
     <StateContext.Provider
-
-    value={{
-    address,
-    contract,
-    connect,
-    reateCampaign:publishCampaign,
-    }}>
-
-    {children}
-
+      value={{
+        address,
+        contract,
+        connect,
+        createCampaign: publishCampaign,
+        getCampaigns,
+      }}
+    >
+      {children}
     </StateContext.Provider>
-  )
+  );
 
 };
 
