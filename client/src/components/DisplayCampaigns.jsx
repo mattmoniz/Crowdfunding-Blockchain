@@ -2,10 +2,9 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import {loader} from '../assets'
 import FundCard from './FundCard';
+import { v4 as uuidv4 } from "uuid";
 
 const DisplayCampaigns = ({title, isLoading, campaigns}) => {
-    debugger
-
     const navigate = useNavigate();
 
     const handleNavigate = (campaign) => {
@@ -28,7 +27,7 @@ const DisplayCampaigns = ({title, isLoading, campaigns}) => {
         )}
         {!isLoading && campaigns.length === 0 && (
           <p className="font-epilogue font-semibold text-[14px] leading-[30px] text-[#818183]">
-            You have not created any campigns yet
+            You have not created any campaigns yet
           </p>
         )}
 
