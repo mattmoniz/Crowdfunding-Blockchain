@@ -8,10 +8,12 @@ import {
 } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 
+import { EditionMetadataWithOwnerOutputSchema } from "@thirdweb-dev/sdk";
+
 const StateContext = createContext();
 export const StateContextProvider = ({ children }) => {
   const { contract } = useContract(
-    "0x4E33846C2e49f82323506017C658a0f1001ACd57"
+    "0x1b409a8f7d02C7cCe045ad784ABD79084A1eE7cA"
   );
   const { mutateAsync: createCampaign } = useContractWrite(
     contract,
@@ -73,7 +75,7 @@ export const StateContextProvider = ({ children }) => {
   };
 
   const getDonations = async (pId) => {
-    const donations = await contract.call("getDonators", [pId]);
+    const donations = await contract.call("getDonors", [pId]);
     const numberOfDonations = donations[0].length;
 
     const parsedDonations = [];
