@@ -13,6 +13,7 @@ const [campaigns, setCampaigns] = useState([]);
     const data = await getUserCampaigns();
     setCampaigns(data);
     setIsLoading(false);
+    console.log("data",data)
   };
 
   useEffect(() => {
@@ -20,11 +21,13 @@ const [campaigns, setCampaigns] = useState([]);
   }, [address, contract]);
 
   return (
+    <div>
     <DisplayCampaigns
-      title="All Campaigns"
+      title={`All donations for Metamask wallet: ${campaigns[0].owner}`}
       isLoading={isLoading}
       campaigns={campaigns}
     />
+    </div>
   );
 };
 
