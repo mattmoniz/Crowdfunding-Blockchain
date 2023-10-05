@@ -13,21 +13,26 @@ const [campaigns, setCampaigns] = useState([]);
     const data = await getUserCampaigns();
     setCampaigns(data);
     setIsLoading(false);
-    console.log("data",data)
   };
 
   useEffect(() => {
     if (contract) fetchCampaigns();
   }, [address, contract]);
 
+
+
   return (
-    <div>
     <DisplayCampaigns
-      title={`All donations for Metamask wallet: ${campaigns[0].owner}`}
       isLoading={isLoading}
       campaigns={campaigns}
+      title={
+        !isLoading &&
+        campaigns.length === 0 && (
+          <p className="font-epilogue font-semibold text-[14px] leading-[30px] text-[#818183]">
+          </p>
+        )
+      }
     />
-    </div>
   );
 };
 
