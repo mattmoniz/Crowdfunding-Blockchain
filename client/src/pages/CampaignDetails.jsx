@@ -6,6 +6,7 @@ import { useStateContext } from "../context";
 import { CountBox, CustomButton, Loader } from "../components";
 import { calculateBarPercentage, daysLeft } from "../utils";
 import { thirdweb } from "../assets";
+import { useConnectionStatus, ConnectWallet } from "@thirdweb-dev/react";
 
 const CampaignDetails = () => {
   const { state } = useLocation();
@@ -167,13 +168,16 @@ const CampaignDetails = () => {
                   you.
                 </p>
               </div>
-
-              <CustomButton
-                btnType="button"
-                title="Fund Campaign"
-                styles="w-full bg-[#8c6dfd]"
-                handleClick={handleDonate}
-              />
+              {address ? (
+                <CustomButton
+                  btnType="button"
+                  title="Fund Campaign"
+                  styles="w-full bg-[#8c6dfd]"
+                  handleClick={handleDonate}
+                />
+              ) : (
+                <ConnectWallet />
+              )}
             </div>
           </div>
         </div>
