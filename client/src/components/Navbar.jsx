@@ -23,8 +23,8 @@ const Navbar = () => {
         {address ? (
           <CustomButton
             btnType="button"
-            title={address ? "Create a campaign" : "Connect"}
-            styles={address ? "bg-[#1dc071]" : "bg-[#8c6dfd]"}
+            title="Create a campaign"
+            styles="bg-[#1dc071]"
             handleClick={() => {
               navigate("create-campaign");
             }}
@@ -98,7 +98,7 @@ const Navbar = () => {
           </ul>
 
           <div className="flex mx-4">
-            <CustomButton
+            {/* <CustomButton
               btnType="button"
               title={address ? "Create a campaign" : "Connect"}
               styles={address ? "bg-[#1dc071]" : "bg-[#8c6dfd]"}
@@ -106,7 +106,20 @@ const Navbar = () => {
                 if (address) navigate("create-campaign");
                 else connect();
               }}
-            />
+            /> */}
+
+            {address ? (
+              <CustomButton
+                btnType="button"
+                title="Create a campaign"
+                styles="bg-[#1dc071]"
+                handleClick={() => {
+                  navigate("create-campaign");
+                }}
+              />
+            ) : (
+              <ConnectWallet />
+            )}
           </div>
         </div>
       </div>
