@@ -5,7 +5,7 @@ import {
   CreateCampaign,
   Home,
   Profile,
-  ConnectWallet,
+  WalletInfo,
 } from "./pages";
 import {Sidebar, Navbar} from './components';
 const App = () => {
@@ -22,7 +22,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-campaign" element={<CreateCampaign />} />
           <Route path="/campaign-details/:id" element={<CampaignDetails />} />
-          <Route path="/connect-wallet" element={<ConnectWallet />} />
+          <Route path="/wallet-info" element={<WalletInfo />} />
         </Routes>
       </div>
     </div>

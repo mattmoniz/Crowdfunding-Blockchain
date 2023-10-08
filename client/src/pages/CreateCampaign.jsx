@@ -1,52 +1,55 @@
-import React, {useState} from 'react'
-import {useNavigate} from 'react-router-dom'
-import {ethers} from 'ethers'
-import {money} from '../assets'
-import {CustomButton, FormField} from '../components';
-import {checkIfImage} from '../utils';
-import { useStateContext } from '../context';
+import React, { useState} from "react";
+import { useNavigate } from "react-router-dom";
+import { ethers } from "ethers";
+import { money } from "../assets";
+import { CustomButton, FormField } from "../components";
+import { checkIfImage } from "../utils";
+import { useStateContext } from "../context";
+import { useConnectionStatus, ConnectWallet } from "@thirdweb-dev/react";
+
 
 
 const CreateCampaign = () => {
   const navigate = useNavigate();
+  const connectionStatus = useConnectionStatus();
   const [isLoading, setIsLoading] = useState(false);
-  const {createCampaign} = useStateContext();
+  const { createCampaign } = useStateContext();
+  const { address } = useStateContext();
+
   const [form, setform] = useState({
-    name:'',
-    title:'',
-    description:'',
-    target:'',
-    deadline:'',
-    image:'',
+    name: "",
+    title: "",
+    description: "",
+    target: "",
+    deadline: "",
+    image: "",
   });
 
-// this function updates every field in the form.
-  const handleFormFieldChange=(fieldName,e) => {
-    setform({...form,[fieldName] : e.target.value})
-  }
+  // this function updates every field in the form.
+  const handleFormFieldChange = (fieldName, e) => {
+    setform({ ...form, [fieldName]: e.target.value });
+  };
 
-  const handleSubmit = async (e) => {
+
+  const handleSubmit =  (e) => {
+
     e.preventDefault();
 
     checkIfImage(form.image, async (exists) => {
-      if(exists){
-
+      if (exists) {
         setIsLoading(true);
         await createCampaign({
           ...form,
           target: ethers.utils.parseUnits(form.target, 18),
         });
         setIsLoading(false);
-        navigate('/')
-
-      }else{
-        alert("Provide Valid Image URL")
-        setform({...form,image:''})
+        navigate("/");
+      } else {
+        alert("Provide Valid Image URL");
+        setform({ ...form, image: "" });
       }
-    }
-    )
-
-  }
+    });
+  };
   return (
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] sm:p-10 p-4">
       {isLoading && "Loader..."}
@@ -55,6 +58,7 @@ const CreateCampaign = () => {
           Start a Campaign
         </h1>
       </div>
+
       <form
         onSubmit={handleSubmit}
         className="w-full mt-[65px] flex flex-col gap-[30px]"
@@ -119,17 +123,24 @@ const CreateCampaign = () => {
           value={form.image}
           handleChange={(e) => handleFormFieldChange("image", e)}
         />
-
-        <div className="flex justify-center items-center mt-[40px]">
-          <CustomButton
-            btnType="submit"
-            title="Submit new campaign"
-            styles="bg-[#1dc071]"
-          />
+        {address ? (
+          <div className="flex justify-center items-center mt-[40px]">
+            <CustomButton
+              btnType="submit"
+              title="Submit new campaign"
+              styles="bg-[#1dc071]"
+            />
+          </div>
+        ) :
+        (
+          <div className="flex justify-center items-center mt-[40px]">
+        <ConnectWallet />
         </div>
+        )
+        }
       </form>
     </div>
   );
-}
+};
 
-export default CreateCampaign
+export default CreateCampaign;

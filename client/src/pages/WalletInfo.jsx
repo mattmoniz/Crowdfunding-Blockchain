@@ -3,7 +3,7 @@ import { FundCard, CustomButton, Loader } from "../components";
 import { thirdweb } from "../assets";
 import { v4 as uuidv4 } from "uuid";
 
-const ConnectWallet = () => {
+const WalletInfo = () => {
   const handleClick = () =>{
     window.open("https://thirdweb.com/dashboard", '_blank');
   }
@@ -23,4 +23,4 @@ const ConnectWallet = () => {
   );
 };
 
-export default ConnectWallet;
+export default WalletInfo;

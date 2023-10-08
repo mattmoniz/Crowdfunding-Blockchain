@@ -27,6 +27,9 @@ https://goerlifaucet.com/
 ![startcampaign](https://github.com/mattmoniz/Crowdfunding-Blockchain/assets/4000619/a0cf0e48-656e-482e-8ff3-357ee6bbb0d7)
 # Create a campaign and fund with metamask GoerliEth
 ![newcampaignmetamask](https://github.com/mattmoniz/Crowdfunding-Blockchain/assets/4000619/1ba85786-c0b9-4850-9d28-3b7c66c07257)
+# ConnectWallet Modal
+<img width="1152" alt="ConnectWalletModal" src="https://github.com/mattmoniz/Crowdfunding-Blockchain/assets/4000619/bea9a81b-57e2-40d6-acd3-35fe0647dbc0">
+
 # Thirdweb dashboard page
  View the thirdweb dashboard to view the campaign analytics
 ![thirdweb](https://github.com/mattmoniz/Crowdfunding-Blockchain/assets/4000619/19a974d0-1a21-4b36-b5cb-2019299cb94d)

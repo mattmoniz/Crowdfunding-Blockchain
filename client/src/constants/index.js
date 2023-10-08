@@ -32,6 +32,6 @@ export const navlinks = [
   {
     name: "withdraw",
     imgUrl: withdraw,
-    link: "/connect-wallet",
+    link: "/wallet-info",
   },
 ];
